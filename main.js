@@ -1,5 +1,4 @@
 // Private variables
-console.log("test")
 var bmKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjE5ZDVkYTRkYjE2OWIzZTUiLCJpYXQiOjE2MzAwMTc0MDAsIm5iZiI6MTYzMDAxNzQwMCwiaXNzIjoiaHR0cHM6Ly93d3cuYmF0dGxlbWV0cmljcy5jb20iLCJzdWIiOiJ1cm46dXNlcjo0Mjg4NDkifQ._j_OHfYvwWGghohvnEqWtVOiPqbGUcV7jnv7ADbIwFo";
 var steamKey = "F47C65C88D0997F805B12C3D9F15DC50";
 var orgKey = "d6cea6a7-b41c-4bdc-9ce0-1766c6f9df59";
@@ -24,6 +23,8 @@ http.onreadystatechange = function() {
     }
 };
 http.send();
+
+console.log("MARKER")
 
 // Verify existing token is valid
 function verifyToken() {
@@ -150,7 +151,7 @@ function start() {
                     }
                 }
 
-   
+                // Reassigns href of <a> tag elements to ensure full reload occurs when being redirected to the same URL
                 if (currentPage == "Overview" && identifiers !== undefined) {
                     var links = document.getElementsByTagName("a");
                     for (var i = 0, len = links.length; i < len; i++) {
