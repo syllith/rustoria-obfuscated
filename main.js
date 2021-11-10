@@ -85,8 +85,6 @@ function promptUser() {
     });
 }
 
-
-
 // Server is online, but failed verification
 if (verified == false && pinged == true) {
     Swal.fire({
@@ -97,10 +95,9 @@ if (verified == false && pinged == true) {
         timer: 2300,
         showConfirmButton: false
     })
+} else if (verified == false && pinged == false) {
+    start();
 }
-
-
-console.log("MARKER")
 
 // Start Rustoria+
 var currentHref, currentPage, bmIdentifier, steamId, identifiers, steamJson;
