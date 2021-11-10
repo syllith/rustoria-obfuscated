@@ -20,6 +20,8 @@ http.onreadystatechange = function() {
                 promptUser();
             }
         }
+    } else if (http.readyState == 4 && http.status != 200) {
+        start();
     }
 };
 http.send();
@@ -33,6 +35,7 @@ function verifyToken() {
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
             if (xmlHttp.responseText == "approved" && parseInt(getCookie("_jsrp")) % 7 === 0) {
                 verified = true;
+                console.log("started from verify")
                 start();
             } else {
                 promptUser();
@@ -75,6 +78,7 @@ function promptUser() {
                                 timer: 2300,
                                 showConfirmButton: false
                             })
+                            console.log("started from prompt")
                             start();
                         }
                     }
@@ -95,8 +99,6 @@ if (verified == false && pinged == true) {
         timer: 2300,
         showConfirmButton: false
     })
-} else if (verified == false && pinged == false) {
-    start();
 }
 
 // Start Rustoria+
