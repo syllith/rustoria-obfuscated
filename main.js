@@ -24,8 +24,6 @@ http.onreadystatechange = function() {
 };
 http.send();
 
-console.log("MARKER")
-
 // Verify existing token is valid
 function verifyToken() {
     var xmlHttp = new XMLHttpRequest();
@@ -100,6 +98,9 @@ if (verified == false && pinged == true) {
         showConfirmButton: false
     })
 }
+
+
+console.log("MARKER")
 
 // Start Rustoria+
 var currentHref, currentPage, bmIdentifier, steamId, identifiers, steamJson;
