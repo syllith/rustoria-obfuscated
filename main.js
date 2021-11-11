@@ -69,7 +69,6 @@ function promptUser() {
 }
 
 async function init() {
-    console.log("init called");
     if (currentPage == "Steam") {
         elementReady('.profile_content').then(() => {
             setBanStatus();
@@ -144,6 +143,7 @@ async function init() {
 
 function handlePage() {
     if (currentPage == "Overview") {
+        console.log("Calling overview");
         updateProfile();
         drawOverview();
     } else if (currentPage == "Activity") {
