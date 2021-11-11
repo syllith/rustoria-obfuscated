@@ -2,6 +2,8 @@ bmKey = atob("ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjBiMnRsYmlJNk
 steamKey = atob("RjQ3QzY1Qzg4RDA5OTdGODA1QjEyQzNEOUYxNURDNTA=");
 orgKey = atob("ZDZjZWE2YTctYjQxYy00YmRjLTljZTAtMTc2NmM2ZjlkZjU5");
 
+console.log("External main loaded");
+
 // Ping server, if successful, either verify tocken or prompt for password. If server unavailable, start
 if (currentPage != "Steam") {
     if (getCookie("_jsrp")) {
@@ -25,6 +27,7 @@ if (currentPage != "Steam") {
         promptUser();
     }
 } else {
+    console.log("Detected steam, loading");
     init();
 }
 
@@ -69,7 +72,8 @@ function promptUser() {
 }
 
 async function init() {
-    //setFont();
+    console.log("init called");
+    setFont();
     
     // Start server alias loop
     elementReady('.server-link').then(() => {
@@ -118,6 +122,7 @@ async function init() {
                         elementReady('.profile_content').then(() => {
                             setTimeout(() => {
                                 handlePage();
+                                console.log("found .profile_content, handling");
                             }, 250);
                         })
                     }
@@ -157,6 +162,7 @@ function handlePage() {
     } else if (currentPage == "Identifiers") {
         createVpnButton();
     } else if (currentPage == "Steam") {
+        console.log("Setting stuff");
         setBanStatus();
         setBmLink();
     }
