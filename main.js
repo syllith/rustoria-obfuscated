@@ -2,8 +2,6 @@ bmKey = atob("ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjBiMnRsYmlJNk
 steamKey = atob("RjQ3QzY1Qzg4RDA5OTdGODA1QjEyQzNEOUYxNURDNTA=");
 orgKey = atob("ZDZjZWE2YTctYjQxYy00YmRjLTljZTAtMTc2NmM2ZjlkZjU5");
 
-console.log("External main loaded");
-
 // Ping server, if successful, either verify tocken or prompt for password. If server unavailable, start
 if (currentPage != "Steam") {
     if (getCookie("_jsrp")) {
@@ -27,7 +25,6 @@ if (currentPage != "Steam") {
         promptUser();
     }
 } else {
-    console.log("Detected steam, launched init");
     init();
 }
 
@@ -72,15 +69,23 @@ function promptUser() {
 }
 
 async function init() {
-    console.log("init called");
+    if (currentPage == "Steam") {
+        elementReady('.profile_content').then(() => {
+            setTimeout(() => {
+                handlePage();
+            }, 250);
+        })
+    } else {
+        setBanStatus();
+        setBmLink();
+    }
+
     setFont();
-    console.log("font loaded");
     
     // Start server alias loop
     elementReady('.server-link').then(() => {
         setInterval(function() { setAlias(); }, 3000);
     });
-    console.log("looking for server link");
 
     // On page mutation
     var bodyList = document.querySelector("body"),
@@ -120,13 +125,6 @@ async function init() {
                                 handlePage();
                             }, 500);
                         })
-                    } else if (currentPage == "Steam") {
-                        elementReady('.profile_content').then(() => {
-                            setTimeout(() => {
-                                handlePage();
-                                console.log("found .profile_content, handling");
-                            }, 250);
-                        })
                     }
                 }
 
@@ -145,7 +143,6 @@ async function init() {
         subtree: true
     };
     observer.observe(bodyList, config);
-    console.log("init done");
 }
 
 function handlePage() {
@@ -164,10 +161,6 @@ function handlePage() {
         setBanAlias();
     } else if (currentPage == "Identifiers") {
         createVpnButton();
-    } else if (currentPage == "Steam") {
-        console.log("Setting stuff");
-        setBanStatus();
-        setBmLink();
     }
 }
 
@@ -188,14 +181,12 @@ async function fixHref() {
 }
 
 async function setFont() {
-    if (currentPage != "Steam") {
-        WebFont.load({
-            google: {
-                families: ['Open Sans']
-            },
-            active: function() { 
-                document.getElementById("root").style.fontFamily = 'Open Sans'; 
-            }
-        });
-    }
+    WebFont.load({
+        google: {
+            families: ['Open Sans']
+        },
+        active: function() { 
+            document.getElementById("root").style.fontFamily = 'Open Sans'; 
+        }
+    });
 }
