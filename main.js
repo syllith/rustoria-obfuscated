@@ -183,6 +183,10 @@ async function setFont() {
         google: {
             families: ['Open Sans']
         },
-        active: function() { document.getElementById("root").style.fontFamily = 'Open Sans'; }
+        active: function() { 
+            if (document.getElementById("root")) {
+                document.getElementById("root").style.fontFamily = 'Open Sans'; 
+            }
+        }
     });
 }
