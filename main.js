@@ -184,7 +184,7 @@ async function setFont() {
             families: ['Open Sans']
         },
         active: function() { 
-            if (document.getElementById("root")) {
+            if (currentPage != "Steam") {
                 document.getElementById("root").style.fontFamily = 'Open Sans'; 
             }
         }
