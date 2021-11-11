@@ -69,7 +69,7 @@ function promptUser() {
 }
 
 async function init() {
-    setFont();
+    //setFont();
     
     // Start server alias loop
     elementReady('.server-link').then(() => {
