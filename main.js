@@ -71,78 +71,74 @@ function promptUser() {
 async function init() {
     if (currentPage == "Steam") {
         elementReady('.profile_content').then(() => {
-            setTimeout(() => {
-                handlePage();
-            }, 250);
+            setBanStatus();
+            setBmLink();
         })
     } else {
-        setBanStatus();
-        setBmLink();
-    }
-
-    setFont();
+        setFont();
     
-    // Start server alias loop
-    elementReady('.server-link').then(() => {
-        setInterval(function() { setAlias(); }, 3000);
-    });
-
-    // On page mutation
-    var bodyList = document.querySelector("body"),
-        observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function() {
-                // On URL Change
-                if (currentHref != window.location.href) {
-                    currentHref = window.location.href;
-                    updatePage();
-
-                    // Wait for a critical element to exist before trying to inject our own scripts
-                    if (currentPage == "Overview") {
-                        elementReady('#note').then(() => {
-                            setTimeout(() => {
-                                handlePage();
-                            }, 100);
-                        })
-                    } else if (currentPage == "Ban" || currentPage == "Edit Ban" || currentPage == "Activity") {
-                        elementReady('select').then(() => {
-                            setTimeout(() => {
-                                handlePage();
-                            }, 500);
-                        })
-                    } else if (currentPage == "Global Activity") {
-                        elementReady('.css-11j1tsg').then(() => {
-                            handlePage();
-                        })
-                    } else if (currentPage == "Public Profile") {
-                        elementReady('.css-5ens21').then(() => {
-                            setTimeout(() => {
-                                handlePage();
-                            }, 500);
-                        })
-                    } else if (currentPage == "Identifiers") {
-                        elementReady('.css-1paipyv').then(() => {
-                            setTimeout(() => {
-                                handlePage();
-                            }, 500);
-                        })
-                    }
-                }
-
-                if (currentPage == "Overview" || currentPage == "Activity") {
-                    colorizeActivity();
-                } else if (currentPage == "Global Activity") {
-                    colorizeGlobal();
-                }
-                colorizeSteamId();
-                fixHref();
-            });
+        // Start server alias loop
+        elementReady('.server-link').then(() => {
+            setInterval(function() { setAlias(); }, 3000);
         });
-
-    var config = {
-        childList: true,
-        subtree: true
-    };
-    observer.observe(bodyList, config);
+    
+        // On page mutation
+        var bodyList = document.querySelector("body"),
+            observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function() {
+                    // On URL Change
+                    if (currentHref != window.location.href) {
+                        currentHref = window.location.href;
+                        updatePage();
+    
+                        // Wait for a critical element to exist before trying to inject our own scripts
+                        if (currentPage == "Overview") {
+                            elementReady('#note').then(() => {
+                                setTimeout(() => {
+                                    handlePage();
+                                }, 100);
+                            })
+                        } else if (currentPage == "Ban" || currentPage == "Edit Ban" || currentPage == "Activity") {
+                            elementReady('select').then(() => {
+                                setTimeout(() => {
+                                    handlePage();
+                                }, 500);
+                            })
+                        } else if (currentPage == "Global Activity") {
+                            elementReady('.css-11j1tsg').then(() => {
+                                handlePage();
+                            })
+                        } else if (currentPage == "Public Profile") {
+                            elementReady('.css-5ens21').then(() => {
+                                setTimeout(() => {
+                                    handlePage();
+                                }, 500);
+                            })
+                        } else if (currentPage == "Identifiers") {
+                            elementReady('.css-1paipyv').then(() => {
+                                setTimeout(() => {
+                                    handlePage();
+                                }, 500);
+                            })
+                        }
+                    }
+    
+                    if (currentPage == "Overview" || currentPage == "Activity") {
+                        colorizeActivity();
+                    } else if (currentPage == "Global Activity") {
+                        colorizeGlobal();
+                    }
+                    colorizeSteamId();
+                    fixHref();
+                });
+            });
+    
+        var config = {
+            childList: true,
+            subtree: true
+        };
+        observer.observe(bodyList, config);
+    }
 }
 
 function handlePage() {
