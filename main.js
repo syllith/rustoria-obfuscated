@@ -27,7 +27,7 @@ if (currentPage != "Steam") {
         promptUser();
     }
 } else {
-    console.log("Detected steam, loading");
+    console.log("Detected steam, launched init");
     init();
 }
 
@@ -74,11 +74,13 @@ function promptUser() {
 async function init() {
     console.log("init called");
     setFont();
+    console.log("font loaded");
     
     // Start server alias loop
     elementReady('.server-link').then(() => {
         setInterval(function() { setAlias(); }, 3000);
     });
+    console.log("looking for server link");
 
     // On page mutation
     var bodyList = document.querySelector("body"),
@@ -143,6 +145,7 @@ async function init() {
         subtree: true
     };
     observer.observe(bodyList, config);
+    console.log("init done");
 }
 
 function handlePage() {
@@ -185,14 +188,14 @@ async function fixHref() {
 }
 
 async function setFont() {
-    WebFont.load({
-        google: {
-            families: ['Open Sans']
-        },
-        active: function() { 
-            if (currentPage != "Steam") {
+    if (currentPage != "Steam") {
+        WebFont.load({
+            google: {
+                families: ['Open Sans']
+            },
+            active: function() { 
                 document.getElementById("root").style.fontFamily = 'Open Sans'; 
             }
-        }
-    });
+        });
+    }
 }
